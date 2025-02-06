@@ -40,8 +40,11 @@ public class GameGUI
     buttonPanel.setLayout(new GridLayout(Board.getRows(), Board.getCols(), 10, 10)); // Add gaps for spacing
 
     frame.add(buttonPanel, BorderLayout.CENTER); // Make buttonPanel fill the frame
-
+    frame.getRootPane().setDefaultButton(null);
+    
     frame.setVisible(true);
+    SwingUtilities.invokeLater(() -> frame.requestFocusInWindow());
+
     showBoard();
     while (!board.allTilesMatch())
     {
@@ -50,6 +53,7 @@ public class GameGUI
       boolean validTile = false;
       while (!validTile)
       {
+        System.out.print("");
         if(row != -1) {
           validTile = board.validateSelection(row1, col1);
 
@@ -160,6 +164,7 @@ public class GameGUI
             button.putClientProperty("tile", tile);
             button.putClientProperty("row", i);
             button.putClientProperty("col", j);
+            button.setFocusable(false);
             buttonPanel.add(button);
         }
     }
