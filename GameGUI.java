@@ -30,7 +30,8 @@ public class GameGUI
   int scoreP2 = 0;
   public void play() {
     board = new Board();
-
+    row = -1;
+    col = -1;
     frame = new JFrame("2D Button Grid");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1000, 1000);
@@ -54,7 +55,7 @@ public class GameGUI
       while (!validTile)
       {
         System.out.print("");
-        if(row != -1) {
+        if(row != -1 && col != -1) {
           validTile = board.validateSelection(row1, col1);
 
           board.showValue(row, col);
@@ -66,7 +67,7 @@ public class GameGUI
       }
 
       // display first tile
-      board.showValue(row1, col1);
+      // board.showValue(row1, col1);
       showBoard();
 
       // get player's second selection, if not an integer, quit
@@ -76,7 +77,7 @@ public class GameGUI
       while (!validTile)
       {
         System.out.print("");
-        if(row != -1) {
+        if(row != -1 && col != -1) {
           row2 = row;
           col2 = col;
           row = -1;
@@ -91,7 +92,6 @@ public class GameGUI
       showBoard();
 
       String matched = board.checkForMatch(row1, col1, row2, col2);
-      System.out.println(matched);
       if (matched.equals("Matched!")) {
         if (turnNumber % 2 == 0) scoreP1 ++;
         else scoreP2 ++;
@@ -106,30 +106,30 @@ public class GameGUI
     System.out.println("Game Over!");
   }
 
-  private boolean getTile(boolean firstChoice)
-  {
-    int num1 = 0;
-    int num2 = 0;
+  // private boolean getTile(boolean firstChoice)
+  // {
+  //   int num1 = 0;
+  //   int num2 = 0;
 
 
-    if (!board.validateSelection(num1, num2))
-    {
-      System.out.print("Invalid input, please try again. ");
-      wait(2);
-      return false;
-    }
-    if (firstChoice)   
-    {
-      row1 = num1;
-      col1 = num2;
-    }
-    else 
-    {
-      row2 = num1;
-      col2 = num2;
-    }
-    return true;
-  }
+  //   if (!board.validateSelection(num1, num2))
+  //   {
+  //     System.out.print("Invalid input, please try again. ");
+  //     wait(2);
+  //     return false;
+  //   }
+  //   if (firstChoice)   
+  //   {
+  //     row1 = num1;
+  //     col1 = num2;
+  //   }
+  //   else 
+  //   {
+  //     row2 = num1;
+  //     col2 = num2;
+  //   }
+  //   return true;
+  // }
 
   /**
    * Clear the console and show the game board
@@ -144,11 +144,11 @@ public class GameGUI
             JButton sourceButton = (JButton) e.getSource();
               row = (int)sourceButton.getClientProperty("row");
               col = (int)sourceButton.getClientProperty("col");
+              System.out.println(row + " " + col);
           }
     };
 
     for (int i = 0; i < Board.getRows(); i++) {
-      buttonPanel.setLayout(new GridLayout(Board.getRows(), Board.getCols()));
         for (int j = 0; j < Board.getCols(); j++) {
             String value;
             Tile tile = gameboard[i][j];
@@ -168,7 +168,8 @@ public class GameGUI
             buttonPanel.add(button);
         }
     }
-    buttonPanel.validate();
+    buttonPanel.revalidate();
+    buttonPanel.repaint();
 
   }
 
