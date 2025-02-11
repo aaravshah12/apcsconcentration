@@ -25,7 +25,7 @@ public class GameGUI
   private int row1, col1;
   private int row2, col2;
   private int row, col;
-  int turnNumber = 0;
+  int turnNumber = 0; 
   int scoreP1 = 0;
   int scoreP2 = 0;
   public void play() {
@@ -83,6 +83,7 @@ public class GameGUI
           row = -1;
           col = -1;
           validTile = board.validateSelection(row2, col2);
+          validTile = validTile && (row1!=row2 && col1!=col2);
         }
       }
       
@@ -105,31 +106,6 @@ public class GameGUI
     showBoard();
     System.out.println("Game Over!");
   }
-
-  // private boolean getTile(boolean firstChoice)
-  // {
-  //   int num1 = 0;
-  //   int num2 = 0;
-
-
-  //   if (!board.validateSelection(num1, num2))
-  //   {
-  //     System.out.print("Invalid input, please try again. ");
-  //     wait(2);
-  //     return false;
-  //   }
-  //   if (firstChoice)   
-  //   {
-  //     row1 = num1;
-  //     col1 = num2;
-  //   }
-  //   else 
-  //   {
-  //     row2 = num1;
-  //     col2 = num2;
-  //   }
-  //   return true;
-  // }
 
   /**
    * Clear the console and show the game board

@@ -77,21 +77,21 @@ public class Board
    */
   public String toString()
   {
- 
+    String r = "";
     /* your code here */
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         if (gameboard[i][j].isShowingValue()) {
-          System.out.print(gameboard[i][j].getValue());
+          r += gameboard[i][j].getValue();
         }
         else {
-          System.out.print(gameboard[i][j].getHidden());
+          r += gameboard[i][j].getHidden();
         }
-        System.out.print(" ");
+        r+=" ";
       }
-      System.out.println();
+      r+="\n";
     }
-    return "";
+    return r;
   }
 
   /** 
@@ -189,6 +189,15 @@ public class Board
       return false;
     }
     if(gameboard[row][col].matched()) {
+      return false;
+    }
+    return true;
+  }
+  public boolean isSelected(int row, int col) {
+    if(gameboard[row][col].matched()) {
+      return false;
+    }
+    if (gameboard[row][col].isShowingValue()) {
       return false;
     }
     return true;

@@ -34,7 +34,7 @@ public class Game
     System.out.println("or enter any non-integer character to quit.");
     System.out.println("(You will need to know 2D arrays to play!)");
     System.out.println("\nPress Enter to continue...");
-
+    in.nextLine();
     board = new Board();
     // play until all tiles are matched
     while (!board.allTilesMatch())
@@ -49,7 +49,7 @@ public class Game
       {
         displayBoard();
         System.out.print("First choice (row col): ");
-        validTile = board.validateSelection(row1, col1);
+        validTile = getTile(true);
       }
 
       // display first tile
