@@ -31,6 +31,27 @@ public class GameGUInew
 
         frame.setVisible(true);
 
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.LIGHT_GRAY);
+        
+        JPanel scoreboardPanel = new JPanel();
+        scoreboardPanel.setBackground(Color.WHITE);
+        scoreboardPanel.setPreferredSize(new Dimension(300, 400));
+        scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Scoreboard", SwingConstants.CENTER);
+        JLabel player1 = new JLabel("Player 1: " + scoreP1);
+        JLabel player2 = new JLabel("Player 2: " + scoreP2);
+        JLabel currPlayer = new JLabel("Playing: Player " + (turnNumber % 2 + 1));
+
+        scoreboardPanel.add(title);
+        scoreboardPanel.add(player1);
+        scoreboardPanel.add(player2);
+        scoreboardPanel.add(currPlayer);
+
+        frame.add(scoreboardPanel, BorderLayout.EAST);
+
+
         showBoard();
         while (!board.allTilesMatch()){
             showBoard();
@@ -54,7 +75,6 @@ public class GameGUInew
                 }
             }
             showBoard();
-            wait(2);
             String matched = board.checkForMatch(row1, col1, row2, col2);
             if (matched.equals("Matched!")) {
                 if (turnNumber % 2 == 0) scoreP1 ++;
@@ -63,7 +83,25 @@ public class GameGUInew
             turnNumber++;
             hasSelectedFirst = false;
             hasSelectedSecond = false;
+            
+            wait(2);  
+            player1.setText("Player 1: " + scoreP1);
+            player2.setText("Player 2: " + scoreP2);  
+            currPlayer.setText("Playing: Player " + (turnNumber % 2 + 1));  
+            scoreboardPanel.revalidate();
+            scoreboardPanel.repaint();  
+            showBoard();
         }
+
+        if (scoreP1 > scoreP2) {
+            currPlayer.setText("Game Over! Player 1 wins!");
+        }
+        else {
+            currPlayer.setText("Game Over! Player 2 wins!");
+        }
+
+        scoreboardPanel.revalidate();
+        scoreboardPanel.repaint();
     }
 
     public void showBoard() {
@@ -94,9 +132,9 @@ public class GameGUInew
                 if (gameboard[i][j].isShowingValue()) {
                     value = tile.getValue();
                   }
-                  else {
+                else {
                     value = tile.getHidden();
-                  }
+                }
                 JButton button = new JButton(value);
                 button.setMinimumSize(new Dimension(300, 300));
                 button.addActionListener(buttonListener);
