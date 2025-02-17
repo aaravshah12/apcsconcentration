@@ -21,14 +21,10 @@ public class Game
   private Board board;
   private int row1, col1;
   private int row2, col2;
-  private int scoreP1, scoreP2;
-  private int turnNumber = 0;
 
   public void play()
   {
     // instructions
-    scoreP1 = 0;
-    scoreP2 = 0;
     System.out.println("Welcome!");
     System.out.println("Select the tile locations you want to match,");
     System.out.println("or enter any non-integer character to quit.");
@@ -40,8 +36,6 @@ public class Game
     while (!board.allTilesMatch())
     {
       // get player's first selection, if not an integer, quit
-
-      System.out.println("Player " + turnNumber % 2 + 1);
       row1 = -1;
       col1 = -1;
       boolean validTile = false;
@@ -80,18 +74,7 @@ public class Game
 
       // determine if tiles match
       String matched = board.checkForMatch(row1, col1, row2, col2);
-      if (matched.equals("Matched!")) {
-        if (turnNumber % 2 == 0) {
-            scoreP1++;
-        }
-        else {
-            scoreP2++;
-        }
-      }
       System.out.println(matched);
-      System.out.println("Player 1 has " + scoreP1 + " points!");
-      System.out.println("Player 2 has " + scoreP2 + " points!");
-      turnNumber++;
 
       // wait 2 seconds to start the next turn
       wait(2); 
